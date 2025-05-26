@@ -1,54 +1,164 @@
-# React + TypeScript + Vite
+# React TypeScript Tetris Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, fully-featured Tetris game built with React, TypeScript, and Vite. Features smooth animations, responsive design, and classic Tetris gameplay.
 
-Currently, two official plugins are available:
+![Tetris Game Screenshot](./public/tetris-screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎮 Features
 
-## Expanding the ESLint configuration
+- **Classic Tetris Gameplay**: All 7 standard Tetris pieces (I, O, T, S, Z, J, L)
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Clean, animated interface with smooth transitions
+- **Score System**: Points awarded for lines cleared and soft drops
+- **Level Progression**: Game speed increases as you advance
+- **Next Piece Preview**: See what's coming next
+- **Keyboard Controls**: Full keyboard support for gameplay
+- **Pause/Resume**: Pause functionality for interruption-free gaming
+- **Game Over Detection**: Automatic game end when pieces reach the top
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🎯 How to Play
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Controls
+
+- **←/→ Arrow Keys**: Move piece left/right
+- **↓ Arrow Key**: Soft drop (faster fall)
+- **↑ Arrow Key**: Rotate piece clockwise
+- **Space Bar**: Hard drop (instant drop)
+- **P Key**: Pause/Resume game
+- **R Key**: Restart game
+
+### Scoring
+
+- **Single Line**: 100 × level
+- **Double Lines**: 300 × level
+- **Triple Lines**: 500 × level
+- **Tetris (4 lines)**: 800 × level
+- **Soft Drop**: 1 point per cell
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/yourusername/react-tetris-game.git
+   cd react-tetris-game
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to play the game!
+
+### Building for Production
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The built files will be in the `dist` directory.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🏗️ Project Structure
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├── components/
+│   ├── GameBoard/
+│   │   └── GameBoard.tsx          # Main game board component
+│   ├── GameControls/
+│   │   └── GameControls.tsx       # Game control buttons
+│   ├── NextPiece/
+│   │   └── NextPiece.tsx          # Next piece preview
+│   └── ScoreBoard/
+│       └── ScoreBoard.tsx         # Score and level display
+├── hooks/
+│   └── useGameLogic.ts            # Main game logic hook
+├── types/
+│   └── tetris.ts                  # TypeScript type definitions
+├── utils/
+│   ├── constants.ts               # Game constants
+│   ├── gameLogic.ts               # Core game logic functions
+│   └── tetrisPieces.ts           # Tetris piece definitions
+├── styles/
+│   └── GlobalStyles.ts            # Global styles and theme
+└── App.tsx                        # Main application component
+```
+
+## 🛠️ Technologies Used
+
+- **React 18**: Modern React with hooks
+- **TypeScript**: Type-safe JavaScript
+- **Vite**: Fast build tool and dev server
+- **CSS-in-JS**: Styled components approach
+- **ESLint**: Code linting and formatting
+
+## 🎨 Design Features
+
+- **Glassmorphism UI**: Modern frosted glass effect
+- **Smooth Animations**: CSS transitions for piece movement
+- **Responsive Layout**: Adapts to different screen sizes
+- **Dark Theme**: Easy on the eyes for extended play
+- **Visual Feedback**: Hover effects and button states
+
+## 🧪 Testing Checklist
+
+- [x] All 7 Tetris pieces spawn correctly
+- [x] Piece rotation works in all orientations
+- [x] Left/right movement with boundary detection
+- [x] Soft drop and hard drop functionality
+- [x] Line clearing animation and scoring
+- [x] Level progression and speed increase
+- [x] Game over detection
+- [x] Pause/resume functionality
+- [x] Restart game feature
+- [x] Responsive design on mobile
+- [x] Keyboard controls working
+- [x] Next piece preview updates correctly
+
+## 🐛 Known Issues
+
+- None currently reported! If you find any bugs, please open an issue.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Classic Tetris game mechanics
+- React and TypeScript communities
+- Modern web development practices
+
+## 🔗 Links
+
+- [Live Demo](https://yourusername.github.io/react-tetris-game)
+- [Report Bug](https://github.com/yourusername/react-tetris-game/issues)
+- [Request Feature](https://github.com/yourusername/react-tetris-game/issues)
+
+---
+
+**Enjoy playing Tetris!** 🎮✨
