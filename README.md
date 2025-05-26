@@ -47,8 +47,8 @@ A modern, fully-featured Tetris game built with React, TypeScript, and Vite. Fea
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/react-tetris-game.git
-   cd react-tetris-game
+   git@github.com:Marwan-Alsayadi/Tetris-Game.git
+   cd Tetris-Game
    ```
 
 2. **Install dependencies**
@@ -155,9 +155,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Live Demo](https://yourusername.github.io/react-tetris-game)
-- [Report Bug](https://github.com/yourusername/react-tetris-game/issues)
-- [Request Feature](https://github.com/yourusername/react-tetris-game/issues)
+- [Live Demo](https://Marwan-Alsayadi.github.io/Tetris-Game)
+- [Report Bug](https://github.com/Marwan-Alsayadi/Tetris-Game/issues)
+- [Request Feature](https://github.com/Marwan-Alsayadi/Tetris-Game/issues)
 
 ---
 
