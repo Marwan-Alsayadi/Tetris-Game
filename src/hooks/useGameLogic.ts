@@ -30,8 +30,8 @@ export const useGameLogic = () => {
     isPlaying: false,
   });
 
-  // Refs for intervals
-  const dropIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  // Refs for intervals - Fixed type for Vercel deployment
+  const dropIntervalRef = useRef<number | null>(null);
   // const lastDropTimeRef = useRef<number>(0);
 
   // Initialize next piece
@@ -262,18 +262,18 @@ export const useGameLogic = () => {
     if (gameState.isPlaying && !gameState.isPaused && !gameState.isGameOver) {
       const dropTime = getDropTime(gameState.level);
 
-      dropIntervalRef.current = setInterval(() => {
+      dropIntervalRef.current = window.setInterval(() => {
         dropPiece();
       }, dropTime);
 
       return () => {
         if (dropIntervalRef.current) {
-          clearInterval(dropIntervalRef.current);
+          window.clearInterval(dropIntervalRef.current);
         }
       };
     } else {
       if (dropIntervalRef.current) {
-        clearInterval(dropIntervalRef.current);
+        window.clearInterval(dropIntervalRef.current);
       }
     }
   }, [
