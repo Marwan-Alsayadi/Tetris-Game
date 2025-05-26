@@ -1,6 +1,6 @@
 // src/hooks/useGameLogic.ts
 import { useState, useEffect, useCallback, useRef } from "react";
-import type { GameState, Tetromino, Direction } from "../types/tetris";
+import type { GameState, Direction } from "../types/tetris";
 import {
   createEmptyBoard,
   getRandomTetromino,
@@ -32,7 +32,7 @@ export const useGameLogic = () => {
 
   // Refs for intervals
   const dropIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const lastDropTimeRef = useRef<number>(0);
+  // const lastDropTimeRef = useRef<number>(0);
 
   // Initialize next piece
   const initializeNextPiece = useCallback(() => {

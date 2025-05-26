@@ -11,9 +11,10 @@ import GameControls from "./components/GameControls";
 const AppContainer = styled.div`
   display: flex;
   gap: 24px;
-  align-items: flex-start;
+  align-items: center;
   max-width: 1200px;
   width: 100%;
+  justify-content: center;
 
   @media (max-width: 768px) {
     flex-direction: column;
