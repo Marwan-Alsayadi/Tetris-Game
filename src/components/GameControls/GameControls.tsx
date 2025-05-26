@@ -17,7 +17,7 @@ const ControlsContainer = styled.div`
   border: 2px solid ${COLORS.BORDER};
   border-radius: 8px;
   padding: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
 `;
 
 const ButtonGroup = styled.div`
@@ -75,14 +75,14 @@ const Button = styled.button<{ variant?: "primary" | "secondary" | "danger" }>`
   }
 `;
 
-const Instructions = styled.div`
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid ${COLORS.BORDER};
-  color: #ccc;
-  font-size: 12px;
-  line-height: 1.4;
-`;
+// const Instructions = styled.div`
+//   margin-top: 16px;
+//   padding-top: 16px;
+//   border-top: 1px solid ${COLORS.BORDER};
+//   color: #ccc;
+//   font-size: 12px;
+//   line-height: 1.4;
+// `;
 
 const GameControls: React.FC<GameControlsProps> = ({
   isPlaying,
@@ -112,7 +112,7 @@ const GameControls: React.FC<GameControlsProps> = ({
         )}
       </ButtonGroup>
 
-      <Instructions>
+      {/* <Instructions>
         <strong>Controls:</strong>
         <br />
         ← → Move
@@ -123,7 +123,7 @@ const GameControls: React.FC<GameControlsProps> = ({
         <br />
         Space Hard Drop
         <br />P Pause
-      </Instructions>
+      </Instructions> */}
     </ControlsContainer>
   );
 };

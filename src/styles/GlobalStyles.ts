@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     color: white;
     overflow-x: hidden;
@@ -22,7 +22,6 @@ export const GlobalStyles = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
   }
 
   button:focus,

@@ -13,7 +13,7 @@ const NextPieceContainer = styled.div`
   border: 2px solid ${COLORS.BORDER};
   border-radius: 8px;
   padding: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   min-height: 120px;
   display: flex;
   flex-direction: column;

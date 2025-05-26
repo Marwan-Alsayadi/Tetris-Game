@@ -1,154 +1,279 @@
 // src/App.tsx
 import React from "react";
-import styled from "styled-components";
-import { GlobalStyles } from "./styles/GlobalStyles";
 import { useGameLogic } from "./hooks/useGameLogic";
-import GameBoard from "./components/GameBoard";
-import NextPiece from "./components/NextPiece";
-import ScoreBoard from "./components/ScoreBoard";
-import GameControls from "./components/GameControls";
-
-const AppContainer = styled.div`
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-`;
-
-const GameArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
-
-const SidePanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 200px;
-
-  @media (max-width: 768px) {
-    min-width: unset;
-    width: 100%;
-    max-width: 300px;
-  }
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: 16px;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
-`;
-
-const GameOverlay = styled.div<{ show: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: ${(props) => (props.show ? "flex" : "none")};
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 10;
-  border-radius: 4px;
-`;
-
-const GameOverText = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  color: #ff6b6b;
-  text-align: center;
-  margin-bottom: 16px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-`;
-
-const PausedText = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #4ecdc4;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-`;
-
-const GameBoardContainer = styled.div`
-  position: relative;
-`;
+import GameBoard from "./components/GameBoard/GameBoard";
+import NextPiece from "./components/NextPiece/NextPiece";
+import ScoreBoard from "./components/ScoreBoard/ScoreBoard";
+import GameControls from "./components/GameControls/GameControls";
+import { MobileControls } from "./components/MobileControls/MobileControls";
+import { GlobalStyles } from "./styles/GlobalStyles";
+import useMediaQuery from "./hooks/useMediaQuery";
 
 const App: React.FC = () => {
   const { gameState, actions } = useGameLogic();
-
-  const {
-    board,
-    currentPiece,
-    nextPiece,
-    score,
-    level,
-    lines,
-    isGameOver,
-    isPaused,
-    isPlaying,
-  } = gameState;
-
-  const { startGame, togglePause, restartGame } = actions;
-
+  const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <>
       <GlobalStyles />
-      <AppContainer>
-        <GameArea>
-          <Title>TETRIS</Title>
-          <GameBoardContainer>
+      <div
+        style={{
+          minHeight: "100vh",
+          // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          // padding: "20px",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: "30px",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            maxWidth: "1200px",
+            width: "100%",
+          }}
+        >
+          {/* Left Panel - Next Piece and Score */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              minWidth: "200px",
+            }}
+          >
+            {isMobile && (
+              <h4
+                style={{
+                  color: "#ffffff",
+                  textAlign: "center",
+                  margin: "0",
+                  fontSize: "1.5rem",
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+                }}
+              >
+                React Tetris
+              </h4>
+            )}
+            <NextPiece nextPiece={gameState.nextPiece} />
+            {!isMobile && (
+              <ScoreBoard
+                score={gameState.score}
+                level={gameState.level}
+                lines={gameState.lines}
+              />
+            )}
+          </div>
+
+          {/* Center - Game Board */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            {!isMobile && (
+              <h1
+                style={{
+                  color: "#ffffff",
+                  textAlign: "center",
+                  margin: "0",
+                  fontSize: "2.5rem",
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+                }}
+              >
+                React Tetris
+              </h1>
+            )}
+
             <GameBoard
-              board={board}
-              currentPiece={currentPiece}
+              board={gameState.board}
+              currentPiece={gameState.currentPiece}
               showGhost={true}
             />
-            <GameOverlay show={isGameOver}>
-              <GameOverText>GAME OVER</GameOverText>
-              <div style={{ color: "#ccc", fontSize: "1.2rem" }}>
-                Final Score: {score.toLocaleString()}
-              </div>
-            </GameOverlay>
-            <GameOverlay show={isPaused && isPlaying}>
-              <PausedText>PAUSED</PausedText>
-            </GameOverlay>
-          </GameBoardContainer>
-        </GameArea>
 
-        <SidePanel>
-          <NextPiece nextPiece={nextPiece} />
-          <ScoreBoard score={score} level={level} lines={lines} />
-          <GameControls
-            isPlaying={isPlaying}
-            isPaused={isPaused}
-            isGameOver={isGameOver}
-            onStart={startGame}
-            onPause={togglePause}
-            onRestart={restartGame}
-          />
-        </SidePanel>
-      </AppContainer>
+            {/* Game Over Overlay */}
+            {gameState.isGameOver && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
+                  color: "#ffffff",
+                  padding: "30px",
+                  borderRadius: "15px",
+                  textAlign: "center",
+                  zIndex: 1000,
+                }}
+              >
+                <h2 style={{ margin: "0 0 20px 0", fontSize: "2rem" }}>
+                  Game Over!
+                </h2>
+                <p style={{ margin: "0 0 20px 0", fontSize: "1.2rem" }}>
+                  Final Score: {gameState.score}
+                </p>
+                <button
+                  onClick={actions.restartGame}
+                  style={{
+                    backgroundColor: "#4CAF50",
+                    color: "white",
+                    border: "none",
+                    padding: "12px 24px",
+                    fontSize: "1.1rem",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    transition: "background-color 0.3s",
+                  }}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#45a049")
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#4CAF50")
+                  }
+                >
+                  Play Again
+                </button>
+              </div>
+            )}
+
+            {/* Pause Overlay */}
+            {gameState.isPaused && gameState.isPlaying && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  backgroundColor: "rgba(0, 0, 0, 0.8)",
+                  color: "#ffffff",
+                  padding: "30px",
+                  borderRadius: "15px",
+                  textAlign: "center",
+                  zIndex: 1000,
+                }}
+              >
+                <h2 style={{ margin: "0 0 20px 0", fontSize: "2rem" }}>
+                  Paused
+                </h2>
+                <p style={{ margin: "0", fontSize: "1.1rem" }}>
+                  Press P or tap Resume to continue
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Right Panel - Controls and Instructions */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              minWidth: "200px",
+            }}
+          >
+            <GameControls
+              onStart={actions.startGame}
+              onPause={actions.togglePause}
+              onRestart={actions.restartGame}
+              isPlaying={gameState.isPlaying}
+              isPaused={gameState.isPaused}
+              isGameOver={gameState.isGameOver}
+            />
+
+            {/* Desktop Controls Info */}
+            {!isMobile && (
+              <div
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "15px",
+                  padding: "20px",
+                  color: "#ffffff",
+                }}
+              >
+                <h3 style={{ margin: "0 0 15px 0", fontSize: "1.2rem" }}>
+                  Controls
+                </h3>
+                <div style={{ fontSize: "0.9rem", lineHeight: "1.6" }}>
+                  <div>
+                    <strong>←/→</strong> Move
+                  </div>
+                  <div>
+                    <strong>↓</strong> Soft Drop
+                  </div>
+                  <div>
+                    <strong>↑</strong> Rotate
+                  </div>
+                  <div>
+                    <strong>Space</strong> Hard Drop
+                  </div>
+                  <div>
+                    <strong>P</strong> Pause
+                  </div>
+                  <div>
+                    <strong>R</strong> Restart
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Scoring Info */}
+            <div
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                borderRadius: "15px",
+                padding: "20px",
+                color: "#ffffff",
+              }}
+            >
+              <h3 style={{ margin: "0 0 15px 0", fontSize: "1.2rem" }}>
+                Scoring
+              </h3>
+              <div style={{ fontSize: "0.9rem", lineHeight: "1.6" }}>
+                <div>
+                  <strong>1 Line:</strong> 100 × Level
+                </div>
+                <div>
+                  <strong>2 Lines:</strong> 300 × Level
+                </div>
+                <div>
+                  <strong>3 Lines:</strong> 500 × Level
+                </div>
+                <div>
+                  <strong>4 Lines:</strong> 800 × Level
+                </div>
+                <div>
+                  <strong>Soft Drop:</strong> 1 point
+                </div>
+                <div>
+                  <strong>Hard Drop:</strong> 2 × distance
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Controls - Only visible on mobile */}
+        <MobileControls
+          onMove={actions.move}
+          onRotate={actions.rotate}
+          onHardDrop={actions.hardDrop}
+          onPause={actions.togglePause}
+          isPlaying={gameState.isPlaying}
+          isPaused={gameState.isPaused}
+        />
+      </div>
     </>
   );
 };
